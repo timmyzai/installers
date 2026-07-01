@@ -44,6 +44,38 @@ chmod +x openvpn-install.sh
 sudo ./openvpn-install.sh
 ```
 
+## After VM Setup: Create User And Connect
+
+After you run a Linux / Ubuntu installer on a VM, you still need a connection
+file for each device or user.
+
+### WireGuard / wg-easy
+
+1. Open the wg-easy admin page shown by the installer.
+2. Create a client in wg-easy.
+3. Download the WireGuard `.conf` file or use the QR code.
+4. Import it into the WireGuard app on Windows, macOS, Linux, iOS, or Android.
+
+Official references:
+
+- [wg-easy documentation](https://wg-easy.github.io/wg-easy/)
+- [WireGuard official install guide](https://www.wireguard.com/install/)
+- [WireGuard official quick start](https://www.wireguard.com/quickstart/)
+- [WireGuard for Windows](https://github.com/WireGuard/wireguard-windows)
+
+### OpenVPN
+
+1. Run the OpenVPN Linux / Ubuntu installer.
+2. Create a client when the installer asks, or use the maintenance menu later.
+3. Copy the generated `.ovpn` file to your device.
+4. Import the `.ovpn` file into OpenVPN Connect.
+
+Official references:
+
+- [OpenVPN Connect user guide](https://openvpn.net/connect-docs/user-guide.html)
+- [Import a profile in OpenVPN Connect](https://openvpn.net/connect-docs/import-profile.html)
+- [OpenVPN Connect for Windows](https://openvpn.net/connect-docs/connect-for-windows.html)
+
 ## Windows
 
 Windows uses the official VPN apps:
