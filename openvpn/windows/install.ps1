@@ -4,9 +4,8 @@
 Installs OpenVPN Connect for Windows and optionally imports an .ovpn profile.
 
 .DESCRIPTION
-This is a Windows client companion for openvpn-install.sh. The Linux script
-creates the VPN server and .ovpn client profile; this script installs OpenVPN
-Connect on Windows and can import that profile.
+This is a Windows client companion for the Linux OpenVPN setup. It installs
+OpenVPN Connect on Windows and can import a generated .ovpn profile.
 #>
 [CmdletBinding()]
 param(

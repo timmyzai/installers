@@ -4,7 +4,8 @@ One-command VPN setup for Linux, Ubuntu, AWS EC2, and Windows.
 
 Use this toolkit to install WireGuard, wg-easy, or OpenVPN with clear copy-paste
 commands. Linux and Ubuntu scripts prepare the VPN environment. Windows scripts
-install the VPN app and help import the generated client profile.
+install the VPN app and can import the connection file created from Linux or
+Ubuntu.
 
 ## Why Use This
 
@@ -15,19 +16,102 @@ install the VPN app and help import the generated client profile.
 - MIT-licensed scripts with clear open-source notices
 - Simple folder layout by VPN product and platform
 
-## Platform Support
+## Linux / Ubuntu
 
 Yes, this project supports Linux.
 
-| Platform | Supported By | Notes |
-| --- | --- | --- |
-| Ubuntu / Debian | `wireguard/linux/install.sh`, `openvpn/linux/install.sh` | Best fit for AWS EC2 Ubuntu |
-| RHEL family | `wireguard/linux/install.sh`, `openvpn/linux/install.sh` | Includes RHEL, CentOS, Rocky, AlmaLinux, Fedora paths |
-| Amazon Linux | `wireguard/linux/install.sh`, `openvpn/linux/install.sh` | Package flow is included in the scripts |
-| Windows | `wireguard/windows/install.ps1`, `openvpn/windows/install.ps1` | Installs client apps and imports profiles |
+| Platform | Support |
+| --- | --- |
+| Ubuntu / Debian | Supported |
+| RHEL / CentOS / Rocky / AlmaLinux / Fedora | Supported |
+| Amazon Linux | Supported |
 
-Windows scripts do not create the VPN environment. They install the Windows VPN
-app and import `.conf` or `.ovpn` files created from the Linux/Ubuntu setup.
+Best recommended target: AWS EC2 Ubuntu.
+
+### WireGuard VPN On Linux / Ubuntu
+
+```bash
+curl -o wireguard-install.sh https://raw.githubusercontent.com/timmyzai/installers/refs/tags/v1.0.0/wireguard/linux/install.sh
+chmod +x wireguard-install.sh
+sudo ./wireguard-install.sh
+```
+
+### OpenVPN On Linux / Ubuntu
+
+```bash
+curl -o openvpn-install.sh https://raw.githubusercontent.com/timmyzai/installers/refs/tags/v1.0.0/openvpn/linux/install.sh
+chmod +x openvpn-install.sh
+sudo ./openvpn-install.sh
+```
+
+## Windows
+
+Windows uses the official VPN apps:
+
+- WireGuard for Windows
+- OpenVPN Connect
+
+The Windows installer can do two things:
+
+1. Install the VPN app only.
+2. Install the VPN app and import your connection file.
+
+Why import a connection file? The VPN app needs your unique connection settings,
+keys, and endpoint address. For WireGuard this is usually `client.conf`. For
+OpenVPN this is usually `client.ovpn`. You get this file after running the
+Linux / Ubuntu setup.
+
+### WireGuard For Windows
+
+Install WireGuard only:
+
+```powershell
+Invoke-WebRequest `
+  -Uri "https://raw.githubusercontent.com/timmyzai/installers/refs/tags/v1.0.0/wireguard/windows/install.ps1" `
+  -OutFile "wireguard-install-windows.ps1"
+
+Set-ExecutionPolicy -Scope Process Bypass -Force
+.\wireguard-install-windows.ps1 -Action Install
+```
+
+Install WireGuard and import `client.conf`:
+
+```powershell
+Invoke-WebRequest `
+  -Uri "https://raw.githubusercontent.com/timmyzai/installers/refs/tags/v1.0.0/wireguard/windows/install.ps1" `
+  -OutFile "wireguard-install-windows.ps1"
+
+Set-ExecutionPolicy -Scope Process Bypass -Force
+.\wireguard-install-windows.ps1 `
+  -Action InstallAndImport `
+  -ConfigPath "$env:USERPROFILE\Downloads\client.conf"
+```
+
+### OpenVPN Connect For Windows
+
+Install OpenVPN Connect only:
+
+```powershell
+Invoke-WebRequest `
+  -Uri "https://raw.githubusercontent.com/timmyzai/installers/refs/tags/v1.0.0/openvpn/windows/install.ps1" `
+  -OutFile "openvpn-install-windows.ps1"
+
+Set-ExecutionPolicy -Scope Process Bypass -Force
+.\openvpn-install-windows.ps1 -Action Install
+```
+
+Install OpenVPN Connect and import `client.ovpn`:
+
+```powershell
+Invoke-WebRequest `
+  -Uri "https://raw.githubusercontent.com/timmyzai/installers/refs/tags/v1.0.0/openvpn/windows/install.ps1" `
+  -OutFile "openvpn-install-windows.ps1"
+
+Set-ExecutionPolicy -Scope Process Bypass -Force
+.\openvpn-install-windows.ps1 `
+  -Action InstallAndImport `
+  -ConfigPath "$env:USERPROFILE\Downloads\client.ovpn"
+```
 
 ## Installers
 
@@ -48,90 +132,13 @@ https://raw.githubusercontent.com/timmyzai/installers/refs/tags/v1.0.0/<path>
 
 Use `refs/heads/main` only when you want the newest unreleased changes.
 
-## Quick Start: AWS VPN On EC2 Ubuntu
-
-SSH into your EC2 Ubuntu machine, then run one of these installers.
-
-### WireGuard VPN
-
-```bash
-curl -o wireguard-install.sh https://raw.githubusercontent.com/timmyzai/installers/refs/tags/v1.0.0/wireguard/linux/install.sh
-chmod +x wireguard-install.sh
-sudo ./wireguard-install.sh
-```
-
-### OpenVPN
-
-```bash
-curl -o openvpn-install.sh https://raw.githubusercontent.com/timmyzai/installers/refs/tags/v1.0.0/openvpn/linux/install.sh
-chmod +x openvpn-install.sh
-sudo ./openvpn-install.sh
-```
-
-## Windows Install Commands
-
-Run PowerShell as Administrator.
-
-### WireGuard For Windows
-
-Install WireGuard:
-
-```powershell
-Invoke-WebRequest `
-  -Uri "https://raw.githubusercontent.com/timmyzai/installers/refs/tags/v1.0.0/wireguard/windows/install.ps1" `
-  -OutFile "wireguard-install-windows.ps1"
-
-Set-ExecutionPolicy -Scope Process Bypass -Force
-.\wireguard-install-windows.ps1 -Action Install
-```
-
-Install WireGuard and import a client config:
-
-```powershell
-Invoke-WebRequest `
-  -Uri "https://raw.githubusercontent.com/timmyzai/installers/refs/tags/v1.0.0/wireguard/windows/install.ps1" `
-  -OutFile "wireguard-install-windows.ps1"
-
-Set-ExecutionPolicy -Scope Process Bypass -Force
-.\wireguard-install-windows.ps1 `
-  -Action InstallAndImport `
-  -ConfigPath "$env:USERPROFILE\Downloads\client.conf"
-```
-
-### OpenVPN Connect For Windows
-
-Install OpenVPN Connect:
-
-```powershell
-Invoke-WebRequest `
-  -Uri "https://raw.githubusercontent.com/timmyzai/installers/refs/tags/v1.0.0/openvpn/windows/install.ps1" `
-  -OutFile "openvpn-install-windows.ps1"
-
-Set-ExecutionPolicy -Scope Process Bypass -Force
-.\openvpn-install-windows.ps1 -Action Install
-```
-
-Install OpenVPN Connect and import a client profile:
-
-```powershell
-Invoke-WebRequest `
-  -Uri "https://raw.githubusercontent.com/timmyzai/installers/refs/tags/v1.0.0/openvpn/windows/install.ps1" `
-  -OutFile "openvpn-install-windows.ps1"
-
-Set-ExecutionPolicy -Scope Process Bypass -Force
-.\openvpn-install-windows.ps1 `
-  -Action InstallAndImport `
-  -ConfigPath "$env:USERPROFILE\Downloads\client.ovpn"
-```
-
 ## Typical Flow
 
-1. Create an AWS EC2 Ubuntu instance or Linux machine.
-2. Open only the required firewall or security group ports.
-3. Run the WireGuard or OpenVPN Linux installer.
-4. Generate or download the VPN client profile.
-5. Run the matching Windows installer.
-6. Import the `.conf` or `.ovpn` file and connect.
+1. Run the Linux / Ubuntu installer.
+2. Create or download the VPN connection file.
+3. Run the matching Windows installer.
+4. Import the `.conf` or `.ovpn` file.
+5. Connect from the Windows VPN app.
 
 ## Common Ports
 
