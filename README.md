@@ -79,7 +79,7 @@ file for each device or user.
 
 Official references:
 
-- [wg-easy documentation](https://wg-easy.github.io/wg-easy/)
+- [wg-easy documentation](https://wg-easy.github.io/wg-easy/latest/)
 - [WireGuard official install guide](https://www.wireguard.com/install/)
 - [WireGuard official quick start](https://www.wireguard.com/quickstart/)
 - [WireGuard for Windows](https://github.com/WireGuard/wireguard-windows)
@@ -180,7 +180,7 @@ Current stable version: `v1.0.0`
 Use tag-based URLs for repeatable installs:
 
 ```text
-https://raw.githubusercontent.com/timmyzai/installers/refs/tags/v1.0.0/<path>
+raw.githubusercontent.com/timmyzai/installers/refs/tags/v1.0.0/<path>
 ```
 
 Use `refs/heads/main` only when you want the newest unreleased changes.
