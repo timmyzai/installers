@@ -1,4 +1,4 @@
-# Timmy Cloud VPN Toolkit
+# TimmyZai Cloud VPN Toolkit
 
 One-command VPN setup for Linux, Ubuntu, AWS EC2, and Windows.
 
