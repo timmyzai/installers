@@ -1,34 +1,33 @@
 # TimmyZai Cloud VPN Toolkit
 
-One-command VPN setup for Linux, Ubuntu, AWS EC2, and Windows.
+Versioned installer scripts for setting up WireGuard / wg-easy and OpenVPN on
+Linux or Ubuntu, with Windows helpers for installing VPN apps and importing
+connection files.
 
-Use this toolkit to install WireGuard, wg-easy, or OpenVPN with clear copy-paste
-commands. Linux and Ubuntu scripts prepare the VPN environment. Windows scripts
-install the VPN app and can import the connection file created from Linux or
-Ubuntu.
+Official VPN docs show how each product works. This toolkit focuses on a faster
+guided setup for AWS EC2 Ubuntu, Linux VMs, and Windows clients.
 
-## Why Use This
+## What You Get
 
-- Fast setup for AWS EC2 Ubuntu and other Linux machines
-- WireGuard / wg-easy and OpenVPN options
-- Windows helpers for WireGuard and OpenVPN Connect
-- Versioned install URLs with git tags
-- MIT-licensed scripts with clear open-source notices
-- Simple folder layout by VPN product and platform
+| VPN | Linux / Ubuntu | Windows |
+| --- | --- | --- |
+| WireGuard / wg-easy | `wireguard/linux/install.sh` | `wireguard/windows/install.ps1` |
+| OpenVPN | `openvpn/linux/install.sh` | `openvpn/windows/install.ps1` |
 
-## Linux / Ubuntu
+## Supported Platforms
 
-Yes, this project supports Linux.
+| Platform | Status | Notes |
+| --- | --- | --- |
+| Ubuntu / Debian | Supported | Recommended for AWS EC2 Ubuntu |
+| Amazon Linux | Supported | Package flow included |
+| RHEL family | Supported | RHEL, CentOS, Rocky, AlmaLinux, Fedora |
+| Windows | Supported | Installs client apps and imports connection files |
 
-| Platform | Support |
-| --- | --- |
-| Ubuntu / Debian | Supported |
-| RHEL / CentOS / Rocky / AlmaLinux / Fedora | Supported |
-| Amazon Linux | Supported |
+## Quick Start: Linux / Ubuntu
 
-Best recommended target: AWS EC2 Ubuntu.
+SSH into your Linux / Ubuntu VM and run one installer.
 
-### WireGuard VPN On Linux / Ubuntu
+### WireGuard / wg-easy
 
 ```bash
 curl -o wireguard-install.sh https://raw.githubusercontent.com/timmyzai/installers/refs/tags/v1.0.0/wireguard/linux/install.sh
@@ -36,7 +35,7 @@ chmod +x wireguard-install.sh
 sudo ./wireguard-install.sh
 ```
 
-### OpenVPN On Linux / Ubuntu
+### OpenVPN
 
 ```bash
 curl -o openvpn-install.sh https://raw.githubusercontent.com/timmyzai/installers/refs/tags/v1.0.0/openvpn/linux/install.sh
@@ -46,15 +45,13 @@ sudo ./openvpn-install.sh
 
 ## Linux / Ubuntu Preparation
 
-You usually do not need to run manual preparation commands first.
+Manual preparation is usually not required.
 
-Run the installer with `sudo`. You do not need to switch into a root shell with
-`sudo -i`.
+- Use `sudo ./<installer>.sh`; you do not need `sudo -i`.
+- The installers handle required package installation.
+- A full OS upgrade is not forced, because package upgrades are an operational choice.
 
-The installers handle the required package installation. A full OS upgrade is
-not forced because some users prefer to control when VM packages are upgraded.
-
-For a fresh Ubuntu VM, this preparation is optional:
+Optional preparation for a fresh Ubuntu VM:
 
 ```bash
 sudo apt-get update
@@ -62,57 +59,45 @@ sudo apt-get upgrade -y
 sudo apt-get install -y ca-certificates curl gnupg lsb-release
 ```
 
-Use it only if the VM is brand new, missing `curl`, or you want to update the OS
-before running the VPN installer.
+## Create Users And Connect Devices
 
-## After VM Setup: Create User And Connect
+Each device or user needs a VPN connection file.
 
-After you run a Linux / Ubuntu installer on a VM, you still need a connection
-file for each device or user.
-
-### WireGuard / wg-easy
+For WireGuard / wg-easy:
 
 1. Open the wg-easy admin page shown by the installer.
 2. Create a client in wg-easy.
-3. Download the WireGuard `.conf` file or use the QR code.
-4. Import it into the WireGuard app on Windows, macOS, Linux, iOS, or Android.
+3. Download the `.conf` file or scan the QR code.
+4. Import it into the WireGuard app.
+
+For OpenVPN:
+
+1. Create a client during setup, or use the maintenance menu later.
+2. Copy the generated `.ovpn` file to the device.
+3. Import it into OpenVPN Connect.
 
 Official references:
 
 - [wg-easy documentation](https://wg-easy.github.io/wg-easy/latest/)
-- [WireGuard official install guide](https://www.wireguard.com/install/)
-- [WireGuard official quick start](https://www.wireguard.com/quickstart/)
+- [WireGuard install guide](https://www.wireguard.com/install/)
+- [WireGuard quick start](https://www.wireguard.com/quickstart/)
 - [WireGuard for Windows](https://github.com/WireGuard/wireguard-windows)
-
-### OpenVPN
-
-1. Run the OpenVPN Linux / Ubuntu installer.
-2. Create a client when the installer asks, or use the maintenance menu later.
-3. Copy the generated `.ovpn` file to your device.
-4. Import the `.ovpn` file into OpenVPN Connect.
-
-Official references:
-
 - [OpenVPN Connect user guide](https://openvpn.net/connect-docs/user-guide.html)
-- [Import a profile in OpenVPN Connect](https://openvpn.net/connect-docs/import-profile.html)
+- [OpenVPN profile import guide](https://openvpn.net/connect-docs/import-profile.html)
 - [OpenVPN Connect for Windows](https://openvpn.net/connect-docs/connect-for-windows.html)
 
 ## Windows
 
-Windows uses the official VPN apps:
+Run PowerShell as Administrator.
 
-- WireGuard for Windows
-- OpenVPN Connect
+The Windows scripts can either install the VPN app only, or install the app and
+import your connection file. The connection file contains your unique VPN
+settings, keys, and endpoint address.
 
-The Windows installer can do two things:
-
-1. Install the VPN app only.
-2. Install the VPN app and import your connection file.
-
-Why import a connection file? The VPN app needs your unique connection settings,
-keys, and endpoint address. For WireGuard this is usually `client.conf`. For
-OpenVPN this is usually `client.ovpn`. You get this file after running the
-Linux / Ubuntu setup.
+| VPN | Connection File |
+| --- | --- |
+| WireGuard | `client.conf` |
+| OpenVPN | `client.ovpn` |
 
 ### WireGuard For Windows
 
@@ -166,12 +151,16 @@ Set-ExecutionPolicy -Scope Process Bypass -Force
   -ConfigPath "$env:USERPROFILE\Downloads\client.ovpn"
 ```
 
-## Installers
+## Common Ports
 
-| VPN | Linux / Ubuntu | Windows |
+| VPN | Default Port | Protocol |
 | --- | --- | --- |
-| WireGuard / wg-easy | `wireguard/linux/install.sh` | `wireguard/windows/install.ps1` |
-| OpenVPN | `openvpn/linux/install.sh` | `openvpn/windows/install.ps1` |
+| WireGuard | `51820` | UDP |
+| wg-easy Admin UI | Installer prompt | TCP |
+| OpenVPN | `1194` | UDP or TCP |
+
+Open only the ports you need. Keep admin interfaces protected by firewall rules,
+a private network, VPN, or load balancer.
 
 ## Versioning
 
@@ -185,44 +174,18 @@ raw.githubusercontent.com/timmyzai/installers/refs/tags/v1.0.0/<path>
 
 Use `refs/heads/main` only when you want the newest unreleased changes.
 
-## Typical Flow
+## License And Open Source Notice
 
-1. Run the Linux / Ubuntu installer.
-2. Create or download the VPN connection file.
-3. Run the matching Windows installer.
-4. Import the `.conf` or `.ovpn` file.
-5. Connect from the Windows VPN app.
+The scripts in this repository are MIT licensed. See [`LICENSE`](LICENSE).
 
-## Common Ports
-
-| VPN | Default Port | Protocol |
-| --- | --- | --- |
-| WireGuard | `51820` | UDP |
-| wg-easy Admin UI | Installer prompt | TCP |
-| OpenVPN | `1194` | UDP or TCP |
-
-Keep admin interfaces private or protected by trusted firewall rules, a private
-network, VPN, or load balancer.
-
-## Open Source Notice
-
-This repository contains installer and helper scripts. It uses or installs
-third-party open-source VPN software including WireGuard, wg-easy, and OpenVPN
-Community Edition. Each upstream project remains under its own license and
-trademark terms.
-
-The scripts in this repository are licensed under the MIT License. See
-[`LICENSE`](LICENSE) and [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md).
-
-## Keywords
-
-AWS VPN, EC2 Ubuntu VPN, Linux VPN installer, Ubuntu VPN setup, WireGuard
-installer, wg-easy installer, OpenVPN installer, Windows VPN client installer,
-self-hosted VPN, cloud VPN, private VPN, PowerShell VPN installer.
+This project uses or installs third-party open-source VPN software including
+WireGuard, wg-easy, and OpenVPN Community Edition. Each upstream project remains
+under its own license and trademark terms. See
+[`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md).
 
 ## Safety Notice
 
-Review every script before running it, especially on production machines or as
+Review scripts before running them, especially on production machines or as
 Administrator. VPN deployment affects networking, firewall rules, routing, and
 remote access. You are responsible for validating security, compliance, and
 operational impact in your own environment.
