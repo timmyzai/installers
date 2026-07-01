@@ -8,8 +8,8 @@ This project follows Semantic Versioning for repository releases.
 
 Initial stable release.
 
-- Add WireGuard / wg-easy Linux server installer.
-- Add OpenVPN Linux server installer.
+- Add WireGuard / wg-easy Linux installer.
+- Add OpenVPN Linux installer.
 - Add WireGuard Windows client installer helper.
 - Add OpenVPN Connect Windows client installer helper.
 - Add provider-style folder layout.
