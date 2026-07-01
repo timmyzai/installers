@@ -44,6 +44,27 @@ chmod +x openvpn-install.sh
 sudo ./openvpn-install.sh
 ```
 
+## Linux / Ubuntu Preparation
+
+You usually do not need to run manual preparation commands first.
+
+Run the installer with `sudo`. You do not need to switch into a root shell with
+`sudo -i`.
+
+The installers handle the required package installation. A full OS upgrade is
+not forced because some users prefer to control when VM packages are upgraded.
+
+For a fresh Ubuntu VM, this preparation is optional:
+
+```bash
+sudo apt-get update
+sudo apt-get upgrade -y
+sudo apt-get install -y ca-certificates curl gnupg lsb-release
+```
+
+Use it only if the VM is brand new, missing `curl`, or you want to update the OS
+before running the VPN installer.
+
 ## After VM Setup: Create User And Connect
 
 After you run a Linux / Ubuntu installer on a VM, you still need a connection
