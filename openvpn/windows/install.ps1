@@ -24,6 +24,7 @@ param(
 
 $ErrorActionPreference = "Stop"
 
+$ScriptVersion = "1.0.0"
 $PackageId = "OpenVPNTechnologies.OpenVPNConnect"
 
 function Assert-Windows {
@@ -181,6 +182,7 @@ function Show-Menu {
         Write-Host "==============================="
         Write-Host " OpenVPN Connect Windows Installer"
         Write-Host "==============================="
+        Write-Host "Version: $ScriptVersion"
         Write-Host "1) Install or upgrade OpenVPN Connect"
         Write-Host "2) Import OpenVPN .ovpn"
         Write-Host "3) Install and import .ovpn"

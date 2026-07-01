@@ -26,6 +26,7 @@ param(
 
 $ErrorActionPreference = "Stop"
 
+$ScriptVersion = "1.0.0"
 $PackageId = "WireGuard.WireGuard"
 
 function Assert-Windows {
@@ -223,6 +224,7 @@ function Show-Menu {
         Write-Host "==============================="
         Write-Host " WireGuard Windows Installer"
         Write-Host "==============================="
+        Write-Host "Version: $ScriptVersion"
         Write-Host "1) Install or upgrade WireGuard"
         Write-Host "2) Import WireGuard .conf"
         Write-Host "3) Install and import .conf"

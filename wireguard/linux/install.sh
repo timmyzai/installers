@@ -60,6 +60,8 @@
 # ------------------------------------------------------------
 set -euo pipefail
 
+SCRIPT_VERSION="1.0.0"
+
 # ============================================================
 # MENU FUNCTIONS
 # ============================================================
@@ -69,6 +71,7 @@ show_menu() {
     echo "==============================="
     echo "      WireGuard / wg-easy      "
     echo "==============================="
+    echo "Version: $SCRIPT_VERSION"
     echo "1) Install wg-easy"
     echo "2) Uninstall wg-easy and clean up"
     echo "3) Exit"

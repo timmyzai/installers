@@ -14,6 +14,18 @@ import your generated client profile.
 | WireGuard / wg-easy | `wireguard/linux/install.sh` | `wireguard/windows/install.ps1` |
 | OpenVPN | `openvpn/linux/install.sh` | `openvpn/windows/install.ps1` |
 
+## Versioning
+
+Current stable version: `v1.0.0`
+
+Stable installs should use a git tag:
+
+```text
+https://raw.githubusercontent.com/timmyzai/installers/refs/tags/v1.0.0/<path>
+```
+
+Use `refs/heads/main` only when you want the latest unreleased changes.
+
 ## Quick Start: AWS VPN On EC2 Ubuntu
 
 Run these commands on your EC2 Ubuntu server over SSH.
@@ -21,7 +33,7 @@ Run these commands on your EC2 Ubuntu server over SSH.
 ### WireGuard VPN With Timmy GitHub
 
 ```bash
-curl -o wireguard-install.sh https://raw.githubusercontent.com/timmyzai/installers/refs/heads/main/wireguard/linux/install.sh
+curl -o wireguard-install.sh https://raw.githubusercontent.com/timmyzai/installers/refs/tags/v1.0.0/wireguard/linux/install.sh
 chmod +x wireguard-install.sh
 sudo ./wireguard-install.sh
 ```
@@ -29,7 +41,7 @@ sudo ./wireguard-install.sh
 ### OpenVPN With Timmy GitHub
 
 ```bash
-curl -o openvpn-install.sh https://raw.githubusercontent.com/timmyzai/installers/refs/heads/main/openvpn/linux/install.sh
+curl -o openvpn-install.sh https://raw.githubusercontent.com/timmyzai/installers/refs/tags/v1.0.0/openvpn/linux/install.sh
 chmod +x openvpn-install.sh
 sudo ./openvpn-install.sh
 ```
@@ -44,7 +56,7 @@ Install WireGuard:
 
 ```powershell
 Invoke-WebRequest `
-  -Uri "https://raw.githubusercontent.com/timmyzai/installers/refs/heads/main/wireguard/windows/install.ps1" `
+  -Uri "https://raw.githubusercontent.com/timmyzai/installers/refs/tags/v1.0.0/wireguard/windows/install.ps1" `
   -OutFile "wireguard-install-windows.ps1"
 
 Set-ExecutionPolicy -Scope Process Bypass -Force
@@ -55,7 +67,7 @@ Install WireGuard and import a client config:
 
 ```powershell
 Invoke-WebRequest `
-  -Uri "https://raw.githubusercontent.com/timmyzai/installers/refs/heads/main/wireguard/windows/install.ps1" `
+  -Uri "https://raw.githubusercontent.com/timmyzai/installers/refs/tags/v1.0.0/wireguard/windows/install.ps1" `
   -OutFile "wireguard-install-windows.ps1"
 
 Set-ExecutionPolicy -Scope Process Bypass -Force
@@ -70,7 +82,7 @@ Install OpenVPN Connect:
 
 ```powershell
 Invoke-WebRequest `
-  -Uri "https://raw.githubusercontent.com/timmyzai/installers/refs/heads/main/openvpn/windows/install.ps1" `
+  -Uri "https://raw.githubusercontent.com/timmyzai/installers/refs/tags/v1.0.0/openvpn/windows/install.ps1" `
   -OutFile "openvpn-install-windows.ps1"
 
 Set-ExecutionPolicy -Scope Process Bypass -Force
@@ -81,7 +93,7 @@ Install OpenVPN Connect and import a client profile:
 
 ```powershell
 Invoke-WebRequest `
-  -Uri "https://raw.githubusercontent.com/timmyzai/installers/refs/heads/main/openvpn/windows/install.ps1" `
+  -Uri "https://raw.githubusercontent.com/timmyzai/installers/refs/tags/v1.0.0/openvpn/windows/install.ps1" `
   -OutFile "openvpn-install-windows.ps1"
 
 Set-ExecutionPolicy -Scope Process Bypass -Force
